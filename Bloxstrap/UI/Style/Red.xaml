@@ -1,0 +1,55 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:base="clr-namespace:Voidstrap.UI.Elements.Base">
+    <!-- Blood/Red Theme - Enhanced Dark Red Color Scheme -->
+    
+    <!-- Text Editor Colors -->
+    <SolidColorBrush x:Key="NewTextEditorBackground" Color="#1A0000" />
+    <SolidColorBrush x:Key="NewTextEditorForeground" Color="#FFCCCC" />
+    <SolidColorBrush x:Key="NewTextEditorLink" Color="#FF6666" />
+    
+    <!-- Primary Background Colors -->
+    <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#22FF0000" />
+    
+    <!-- Control Colors -->
+    <Color x:Key="ControlFillColorDefault">#33FF0000</Color>
+    <Color x:Key="ControlFillColorSecondary">#44FF0000</Color>
+    <Color x:Key="ControlFillColorTertiary">#22CC0000</Color>
+    
+    <!-- Window Background Colors -->
+    <Color x:Key="WindowBackgroundColorPrimary">#1A0000</Color>
+    <Color x:Key="WindowBackgroundColorSecondary">#330000</Color>
+    <Color x:Key="WindowBackgroundColorThird">#220000</Color>
+    
+    <!-- Accent Colors - Blood Red Theme -->
+    <Color x:Key="SystemAccentColor">#CC0000</Color>
+    <Color x:Key="SystemAccentColorPrimary">#FF0000</Color>
+    <Color x:Key="SystemAccentColorSecondary">#DD0000</Color>
+    <Color x:Key="SystemAccentColorTertiary">#AA0000</Color>
+    
+    <!-- Text Colors -->
+    <Color x:Key="TextFillColorPrimary">#FFEEEE</Color>
+    <Color x:Key="TextFillColorSecondary">#FFCCCC</Color>
+    <Color x:Key="TextFillColorTertiary">#FFAAAA</Color>
+    
+    <!-- Border Colors -->
+    <SolidColorBrush x:Key="ControlElevationBorderBrush" Color="#55FF0000" />
+    
+    <!-- Background Gradients -->
+    <LinearGradientBrush x:Key="WindowBackgroundGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#1A0000" Offset="0"/>
+        <GradientStop Color="#330000" Offset="0.5"/>
+        <GradientStop Color="#1A0000" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <!-- Card/Panel Backgrounds -->
+    <SolidColorBrush x:Key="CardBackground" Color="#15FF0000" />
+    <SolidColorBrush x:Key="CardBorder" Color="#40FF0000" />
+    
+    <!-- Button Hover/Active States -->
+    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#44FF0000" />
+    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#66FF0000" />
+    
+    <!-- Additional Blood Theme Elements -->
+    <SolidColorBrush x:Key="BloodHighlight" Color="#FF3333" />
+    <SolidColorBrush x:Key="DarkBlood" Color="#660000" />
+    <SolidColorBrush x:Key="LightBlood" Color="#FF6666" />
+</ResourceDictionary>

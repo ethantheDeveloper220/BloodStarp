@@ -1,0 +1,154 @@
+<base:WpfUiWindow x:Class="Voidstrap.UI.Elements.Dialogs.GlobalSettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+        xmlns:base="clr-namespace:Voidstrap.UI.Elements.Base"
+        xmlns:resources="clr-namespace:Voidstrap.Resources"
+        mc:Ignorable="d"
+        Title="Global Settings" 
+        Height="700"
+        Width="900"
+        ResizeMode="CanResize"
+        Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+        ExtendsContentIntoTitleBar="True"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="ImageBackgroundLayer" Panel.ZIndex="-1" Visibility="{Binding IsImageMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="3">
+            <Border Background="{DynamicResource WindowBackgroundImage}" />
+            <Border Background="{DynamicResource WindowBackgroundBlackOverlay}" />
+        </Grid>
+
+        <ui:TitleBar Grid.Row="0" Padding="8" Title="Global Settings" Icon="Settings24" ShowMinimize="False" ShowMaximize="False" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="16">
+                
+                <!-- Header -->
+                <TextBlock Text="Global Settings" FontSize="28" FontWeight="Bold" Margin="0,0,0,8"/>
+                <TextBlock Text="Configure all application settings in one place" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,24"/>
+
+                <!-- Configuration Backup Section -->
+                <TextBlock Text="⚙️ Configuration Management" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                
+                <controls:OptionControl 
+                    Header="Backup &amp; Restore Configuration" 
+                    Description="Export and import your complete Voidstrap configuration">
+                    <ui:Button Content="Open Backup Manager" Click="OpenConfigBackup_Click" Icon="ArrowExportLtr24" Appearance="Primary" />
+                </controls:OptionControl>
+
+                <Separator Margin="0,16,0,16"/>
+
+                <!-- Froststrap Features Section -->
+                <TextBlock Text="Froststrap Features" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                
+                <controls:OptionControl 
+                    Header="Debug Menu" 
+                    Description="Access advanced log viewing and debugging tools">
+                    <ui:Button Content="Open Debug Menu" Click="OpenDebugMenu_Click" Icon="BugFilled16" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Advanced FastFlag Settings" 
+                    Description="Configure advanced FastFlag editor options">
+                    <ui:Button Content="Open Advanced Settings" Click="OpenAdvancedSettings_Click" Icon="Settings24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Flag Validation Dialog" 
+                    Description="View and manage invalid, default, and updated FastFlags">
+                    <ui:Button Content="Open Flag Dialog" Click="OpenFlagDialog_Click" Icon="Flag24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Roblox Settings" 
+                    Description="Configure Roblox game settings and preferences">
+                    <ui:Button Content="Open Roblox Settings" Click="OpenRobloxSettings_Click" Icon="Games24" />
+                </controls:OptionControl>
+
+                <Separator Margin="0,16,0,16"/>
+
+                <!-- Voidstrap Features Section -->
+                <TextBlock Text="Voidstrap Features" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                
+                <controls:OptionControl 
+                    Header="Account Console" 
+                    Description="View and manage Roblox account information">
+                    <ui:Button Content="Open Account Console" Click="OpenAccountConsole_Click" Icon="Person24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Better Blox Data Center Console" 
+                    Description="Advanced data center monitoring and management">
+                    <ui:Button Content="Open Data Center Console" Click="OpenDataCenterConsole_Click" Icon="Server24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Chat Logs" 
+                    Description="View and analyze in-game chat logs">
+                    <ui:Button Content="Open Chat Logs" Click="OpenChatLogs_Click" Icon="Chat24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Game Pass Console" 
+                    Description="Manage and view game pass information">
+                    <ui:Button Content="Open Game Pass Console" Click="OpenGamePassConsole_Click" Icon="Ticket24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Music Console" 
+                    Description="Control and manage in-game music">
+                    <ui:Button Content="Open Music Console" Click="OpenMusicConsole_Click" Icon="MusicNote224" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Output Console" 
+                    Description="View game output and console messages">
+                    <ui:Button Content="Open Output Console" Click="OpenOutputConsole_Click" Icon="Code24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="RPC Window" 
+                    Description="Configure Discord Rich Presence settings">
+                    <ui:Button Content="Open RPC Window" Click="OpenRPCWindow_Click" Icon="ShareScreenStart24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="Cursor Preview" 
+                    Description="Preview and customize cursor appearance">
+                    <ui:Button Content="Open Cursor Preview" Click="OpenCursorPreview_Click" Icon="Cursor24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="FastFlag Presets" 
+                    Description="Quick access to FastFlag preset configurations">
+                    <ui:Button Content="Open FastFlag Presets" Click="OpenFFlagPresets_Click" Icon="Presets24" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    Header="FastFlag Search" 
+                    Description="Search and filter through available FastFlags">
+                    <ui:Button Content="Open FastFlag Search" Click="OpenFFlagSearch_Click" Icon="Search24" />
+                </controls:OptionControl>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
+            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
+                <Button MinWidth="100" Content="Close" IsCancel="True" FontWeight="Medium" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</base:WpfUiWindow>
