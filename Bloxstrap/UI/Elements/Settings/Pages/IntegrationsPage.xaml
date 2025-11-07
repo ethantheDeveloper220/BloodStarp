@@ -1,0 +1,342 @@
+<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.IntegrationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Voidstrap.UI.ViewModels"
+    xmlns:resources="clr-namespace:Voidstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="IntegrationsPageView"
+    Title="IntegrationsPage"
+    d:DesignHeight="1580"
+    d:DesignWidth="800"
+    Scrollable="True"
+    mc:Ignorable="d">
+    <StackPanel Margin="0,0,14,14">
+        <TextBlock
+            FontSize="14"
+            Foreground="{StaticResource TextFillColorSecondaryBrush}"
+            Text="{x:Static resources:Strings.Menu_Integrations_Description}" />
+
+        <TextBlock
+            Margin="0,8,0,0"
+            FontSize="20"
+            FontWeight="Medium"
+            Text="{x:Static resources:Strings.Menu_Integrations_ActivityTracking}" />
+
+
+        <controls:OptionControl
+            x:Name="ActivityTrackingOption"
+            Description="{x:Static resources:Strings.Menu_Integrations_EnableActivityTracking_Description}"
+            Header="{x:Static resources:Strings.Menu_Integrations_EnableActivityTracking_Title}"
+            HelpLink="https://github.com/BloxstrapLabs/Bloxstrap/wiki/What-is-activity-tracking%3F">
+            <ui:ToggleSwitch
+                Background="{DynamicResource SystemAccentBrush}"
+                IsChecked="{Binding ActivityTrackingEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Description="{Binding Source={x:Static resources:Strings.Menu_Integrations_QueryServerLocation_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://ipinfo.io'}"
+            Header="{x:Static resources:Strings.Menu_Integrations_QueryServerLocation_Title}"
+            HelpLink="https://github.com/BloxstrapLabs/Bloxstrap/wiki/What-is-activity-tracking%3F#server-location-querying"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding ShowServerDetailsEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Description="Displays BetterBLOX server uptime, only works in games that are in the datacenter."
+            Header="Server Uptime"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding ServerUptimeBetterBLOXcuzitsbetterXD, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Description="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Description}"
+            Header="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Title}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding PlayerLogsEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Description="{Binding Source={x:Static resources:Strings.Menu_Integrations_DesktopApp_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/BloxstrapLabs/Bloxstrap/wiki/What-is-activity-tracking%3F#dont-exit-to-desktop-app'}"
+            Header="{x:Static resources:Strings.Menu_Integrations_DesktopApp_Title}"
+            HelpLink="https://github.com/BloxstrapLabs/Bloxstrap/wiki/What-is-activity-tracking%3F#dont-exit-to-desktop-app"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding DisableAppPatchEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+    Header="View Music Player"
+    Description="View and listen to your music, or manage from the tray menu.">
+            <Button Content="View" 
+            Command="{Binding MusicWindowCommand}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"/>
+        </controls:OptionControl>
+
+        <TextBlock
+            Margin="0,16,0,0"
+            FontSize="20"
+            FontWeight="Medium"
+            Text="{x:Static resources:Strings.Common_DiscordRichPresence}" />
+        <controls:MarkdownTextBlock
+            Foreground="{StaticResource TextFillColorSecondaryBrush}"
+            MarkdownText="{Binding Source={x:Static resources:Strings.Menu_Integrations_RequiresActivityTracking}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/Bloxstraplabs/Bloxstrap/wiki/What-is-activity-tracking%3F#discord-rich-presence'}"
+            TextWrapping="Wrap" />
+
+        <controls:OptionControl
+            x:Name="DiscordActivityOption"
+            Description="{Binding Source={x:Static resources:Strings.Menu_Integrations_ShowGameActivity_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/Bloxstraplabs/Bloxstrap/wiki/Discord-Rich-Presence-does-not-work'}"
+            Header="{x:Static resources:Strings.Menu_Integrations_ShowGameActivity_Title}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding DiscordActivityEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Description="{x:Static resources:Strings.Menu_Integrations_ShowAccountOnProfile_Description}"
+            Header="{x:Static resources:Strings.Menu_Integrations_ShowAccountOnProfile_Title}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=DiscordActivityOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding DiscordAccountOnProfile, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Description="{x:Static resources:Strings.Menu_Integrations_AllowActivityJoining_Description}"
+            Header="{x:Static resources:Strings.Menu_Integrations_AllowActivityJoining_Title}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=DiscordActivityOption, Mode=OneWay}">
+            <ui:ToggleSwitch Background="{DynamicResource SystemAccentBrush}" IsChecked="{Binding DiscordActivityJoinEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+    Header="Custom RPC"
+    Description="Make/Edit a custom RPC for Discord.">
+            <Button Content="View" 
+            Command="{Binding RPCWindowCommand}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"/>
+        </controls:OptionControl>
+
+        <Expander Header="RPC Advanced" Margin="0,8,0,0">
+            <StackPanel Orientation="Vertical">
+                <controls:OptionControl
+            Header="Game Server Location"
+            Description="Displays your In-Game Server Location on Discord."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:ToggleSwitch
+                Background="{DynamicResource SystemAccentBrush}"
+                IsChecked="{Binding ServerLocationGame, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl
+            Header="Game Name"
+            Description="Displays your Roblox Games Name on Discord."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:ToggleSwitch
+                Background="{DynamicResource SystemAccentBrush}"
+                IsChecked="{Binding GameNameChecked, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl
+            Header="Game Creator"
+            Description="Displays your Roblox Games Creators Name/Group on Discord."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:ToggleSwitch
+                Background="{DynamicResource SystemAccentBrush}"
+                IsChecked="{Binding GameCreatorChecked, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl
+            Header="Game Icon"
+            Description="Displays your Roblox Games Icon on Discord."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:ToggleSwitch
+                Background="{DynamicResource SystemAccentBrush}"
+                IsChecked="{Binding GameIconChecked, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl
+            Header="Server Status"
+            Description="Displays your Roblox Games Server Status (Public, Private, Reserved)."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:ToggleSwitch
+                Background="{DynamicResource SystemAccentBrush}"
+                IsChecked="{Binding GameStatusChecked, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+                <controls:OptionControl
+            Header="Custom Image"
+            Description="Displays a custom image instead of the games image."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:TextBox
+                        Width="200"
+                        Margin="5,0,0,0"
+                        Padding="10,5,10,5"
+                        Icon="Image24"
+                        Text="{Binding gameimage, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+                <controls:OptionControl
+            Header="Custom Game Name"
+            Description="Displays a custom Game Name instead of the games name. (Game Name Must be Enabled)"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:TextBox
+                        Width="200"
+                        Margin="5,0,0,0"
+                        Padding="10,5,10,5"
+                        Icon="Rename24"
+                        Text="{Binding gamename, Mode=TwoWay}" />
+                </controls:OptionControl>
+            </StackPanel>
+        </Expander>
+
+
+        <TextBlock
+            Margin="0,16,0,0"
+            FontSize="20"
+            FontWeight="Medium"
+            Text="Roblox" />
+
+        <controls:OptionControl 
+            Header="FPS Unlocker"
+            Description="Removes the 240 FPS Limit without using FastFlags.">
+            <ui:ToggleSwitch IsChecked="{Binding UncapFPS, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+    Header="View Game History"
+    Description="View your Roblox game history.">
+            <Button Content="View" 
+            Command="{Binding OpenHistoryWindowCommand}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"/>
+        </controls:OptionControl>
+
+
+        <TextBlock
+            Margin="0,16,0,0"
+            FontSize="20"
+            FontWeight="Medium"
+            Text="{x:Static resources:Strings.Menu_Integrations_Custom_Title}" />
+        <TextBlock
+            Foreground="{StaticResource TextFillColorSecondaryBrush}"
+            Text="{x:Static resources:Strings.Menu_Integrations_Custom_Description}"
+            TextWrapping="Wrap" />
+        <Grid Margin="0,8,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListBox
+                x:Name="CustomIntegrationsListBox"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,4,0"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding CustomIntegrations, Mode=OneWay}"
+                SelectedIndex="{Binding SelectedCustomIntegrationIndex, Mode=TwoWay}"
+                SelectionChanged="CustomIntegrationSelection" />
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,8,4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ui:Button
+                    Grid.Column="0"
+                    Margin="0,0,4,0"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding AddIntegrationCommand, Mode=OneTime}"
+                    Content="{x:Static resources:Strings.Common_New}"
+                    Icon="Add28" />
+                <ui:Button
+                    Grid.Column="1"
+                    Margin="4,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Appearance="Danger"
+                    Background="#ff3334"
+                    Command="{Binding DeleteIntegrationCommand, Mode=OneTime}"
+                    Content="{x:Static resources:Strings.Common_Delete}"
+                    Icon="Delete28"
+                    IsEnabled="{Binding IsCustomIntegrationSelected, Mode=OneWay}" />
+            </Grid>
+            <StackPanel
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Margin="4,0,0,0">
+                <StackPanel.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCustomIntegrationSelected}" Value="False">
+                                <Setter Property="StackPanel.Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <TextBlock Foreground="{StaticResource TextFillColorSecondaryBrush}" Text="{x:Static resources:Strings.Common_Name}" />
+                <ui:TextBox Margin="0,4,0,0" Icon="Rename24" Text="{Binding SelectedCustomIntegration.Name, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    Margin="0,8,0,0"
+                    Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                    Text="{x:Static resources:Strings.Menu_Integrations_Custom_AppLocation}" />
+                <Grid Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBox
+                        Grid.Column="0"
+                        Margin="0,0,0,0"
+                        Icon="Folder24"
+                        PlaceholderText="C:\Windows\System32\cmd.exe"
+                        Text="{Binding SelectedCustomIntegration.Location, UpdateSourceTrigger=PropertyChanged}" />
+                    <ui:Button
+                        Grid.Column="1"
+                        Height="34"
+                        Margin="8,0,0,0"
+                        Command="{Binding BrowseIntegrationLocationCommand}"
+                        Content="{x:Static resources:Strings.Common_Browse}"
+                        Icon="Folder24" />
+                </Grid>
+                <TextBlock
+                    Margin="0,8,0,0"
+                    Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                    Text="{x:Static resources:Strings.Menu_Integrations_Custom_LaunchArgs}" />
+                <ui:TextBox
+                    Margin="0,4,0,0"
+                    AcceptsReturn="True"
+                    AcceptsTab="True"
+                    Height="80"
+                    Icon="Code24"
+                    Text="{Binding SelectedCustomIntegration.LaunchArgs, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_SpecifyGame}" IsChecked="{Binding SelectedCustomIntegration.SpecifyGame, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="0,8,0,0" Text="{x:Static resources:Strings.Menu_Integrations_Custom_GameID}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <ui:TextBox Margin="0,4,0,0" Icon="Games24" PlaceholderText="1818" Text="{Binding SelectedCustomIntegration.GameID}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_AutoCloseOnGame}" IsChecked="{Binding SelectedCustomIntegration.AutoCloseOnGame, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_AutoClose}" IsChecked="{Binding SelectedCustomIntegration.AutoClose, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <TextBlock
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{x:Static resources:Strings.Menu_Integrations_Custom_NoneSelected}"
+                TextWrapping="Wrap">
+                <TextBlock.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCustomIntegrationSelected}" Value="True">
+                                <Setter Property="TextBlock.Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </StackPanel>
+</ui:UiPage>

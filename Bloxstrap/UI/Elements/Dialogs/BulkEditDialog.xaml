@@ -1,0 +1,117 @@
+<Window
+    x:Class="Voidstrap.UI.Elements.Dialogs.BulkEditDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Bulk Edit FastFlags"
+    Width="650" Height="500"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Grid Width="600" Height="450" Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Description -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            FontSize="13"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            TextWrapping="Wrap"
+            Text="Perform bulk operations on multiple FastFlags at once." />
+
+        <!-- Operation Type -->
+        <TextBlock
+            Grid.Row="1"
+            Margin="0,0,0,8"
+            Text="Operation:" />
+
+        <ComboBox
+            x:Name="OperationComboBox"
+            Grid.Row="2"
+            Margin="0,0,0,16"
+            SelectionChanged="OperationComboBox_SelectionChanged">
+            <ComboBoxItem Content="Find and Replace" IsSelected="True" />
+            <ComboBoxItem Content="Multiply Values" />
+            <ComboBoxItem Content="Add to Values" />
+            <ComboBoxItem Content="Set All to Value" />
+            <ComboBoxItem Content="Delete Matching" />
+        </ComboBox>
+
+        <!-- Input Fields -->
+        <StackPanel x:Name="FindReplacePanel" Grid.Row="3" Margin="0,0,0,16" Visibility="Visible">
+            <TextBlock Text="Find:" Margin="0,0,0,4" />
+            <ui:TextBox x:Name="FindTextBox" Margin="0,0,0,8" PlaceholderText="Text to find in flag names" />
+            <TextBlock Text="Replace with:" Margin="0,0,0,4" />
+            <ui:TextBox x:Name="ReplaceTextBox" Margin="0,0,0,8" PlaceholderText="Replacement text" />
+            <CheckBox x:Name="CaseSensitiveCheckBox" Content="Case sensitive" />
+        </StackPanel>
+
+        <StackPanel x:Name="ValueOperationPanel" Grid.Row="3" Margin="0,0,0,16" Visibility="Collapsed">
+            <TextBlock Text="Value:" Margin="0,0,0,4" />
+            <ui:TextBox x:Name="ValueTextBox" Margin="0,0,0,8" PlaceholderText="Enter numeric value" />
+            <TextBlock Text="Filter (optional):" Margin="0,0,0,4" />
+            <ui:TextBox x:Name="FilterTextBox" PlaceholderText="Only apply to flags containing this text" />
+        </StackPanel>
+
+        <!-- Preview -->
+        <Border
+            Grid.Row="5"
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            Padding="12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,8"
+                    FontWeight="Bold"
+                    Text="Preview:" />
+
+                <ScrollViewer
+                    Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto">
+                    <TextBlock
+                        x:Name="PreviewTextBlock"
+                        FontFamily="Consolas"
+                        FontSize="11"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="Configure operation to see preview..."
+                        TextWrapping="Wrap" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <ui:Button
+                x:Name="ApplyButton"
+                Width="130"
+                Margin="0,0,8,0"
+                Click="ApplyButton_Click"
+                Content="Apply Changes"
+                Appearance="Primary" />
+            <ui:Button
+                x:Name="CancelButton"
+                Width="100"
+                Click="CancelButton_Click"
+                Content="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,271 @@
+<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.GameSessionTimerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Voidstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Game Session Timer"
+    d:DesignWidth="800"
+    Scrollable="True"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,16,16">
+        <TextBlock
+            FontSize="20"
+            FontWeight="Medium"
+            Text="Game Session Timer" />
+        <TextBlock
+            Margin="0,4,0,16"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="Track your playtime per game with detailed statistics" />
+
+        <!-- Current Session -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="Current Session" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                        <TextBlock
+                            FontSize="48"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource SystemAccentBrush}"
+                            HorizontalAlignment="Center"
+                            x:Name="CurrentSessionTime"
+                            Text="00:00:00" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            HorizontalAlignment="Center"
+                            x:Name="CurrentGameName"
+                            Text="No active session" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <Border
+                            Padding="16"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Session Start:" Margin="0,0,12,0" />
+                                <TextBlock Grid.Column="1" x:Name="SessionStartText" Text="--" FontWeight="SemiBold" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Padding="16"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Game:" Margin="0,0,12,0" />
+                                <TextBlock Grid.Column="1" x:Name="CurrentPlaceIdText" Text="--" FontWeight="SemiBold" />
+                            </Grid>
+                        </Border>
+
+                        <ui:Button
+                            x:Name="StopSessionButton"
+                            HorizontalAlignment="Stretch"
+                            Appearance="Secondary"
+                            Click="StopSessionButton_Click"
+                            Content="Stop Session"
+                            Icon="Stop24"
+                            IsEnabled="False" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Statistics -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="Statistics" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Padding="16" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="8" Margin="0,0,8,0">
+                        <StackPanel>
+                            <TextBlock Text="Today" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <TextBlock x:Name="TodayTimeText" Text="0h 0m" FontSize="24" FontWeight="Bold" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Padding="16" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="8" Margin="4,0">
+                        <StackPanel>
+                            <TextBlock Text="This Week" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <TextBlock x:Name="WeekTimeText" Text="0h 0m" FontSize="24" FontWeight="Bold" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Padding="16" Background="{DynamicResource ControlFillColorDefaultBrush}" CornerRadius="8" Margin="8,0,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Total" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <TextBlock x:Name="TotalTimeText" Text="0h 0m" FontSize="24" FontWeight="Bold" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Session History -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <Grid Margin="0,0,0,16">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        Text="Session History" />
+                    <ui:Button
+                        HorizontalAlignment="Right"
+                        Appearance="Secondary"
+                        Click="ClearHistoryButton_Click"
+                        Content="Clear"
+                        Icon="Delete24" />
+                </Grid>
+
+                <ScrollViewer MaxHeight="400" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="SessionHistoryList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Padding="12"
+                                    Margin="0,0,0,8"
+                                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                    CornerRadius="8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock FontWeight="SemiBold" Text="{Binding GameName}" />
+                                            <TextBlock
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{Binding DatePlayed}" />
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Margin="16,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="Bold"
+                                            Foreground="{DynamicResource SystemAccentBrush}"
+                                            Text="{Binding Duration}" />
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                            Text="{Binding TimeRange}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Empty State -->
+                <StackPanel
+                    x:Name="EmptyHistoryState"
+                    Margin="0,40,0,40"
+                    HorizontalAlignment="Center"
+                    Visibility="Collapsed">
+                    <TextBlock
+                        FontSize="48"
+                        HorizontalAlignment="Center"
+                        Text="⏱️" />
+                    <TextBlock
+                        Margin="0,16,0,8"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Center"
+                        Text="No session history" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        HorizontalAlignment="Center"
+                        Text="Your gaming sessions will appear here" />
+                </StackPanel>
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Settings -->
+        <ui:CardControl>
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="Timer Settings" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Enable session tracking" />
+                    <ui:ToggleSwitch x:Name="EnableTrackingToggle" Grid.Row="0" Grid.Column="1" Margin="0,8" IsChecked="True" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Show desktop notifications" />
+                    <ui:ToggleSwitch x:Name="ShowNotificationsToggle" Grid.Row="1" Grid.Column="1" Margin="0,8" IsChecked="True" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Notify after (minutes)" />
+                    <ComboBox x:Name="NotifyIntervalCombo" Grid.Row="2" Grid.Column="1" Margin="0,8" Width="120" SelectedIndex="2">
+                        <ComboBoxItem Content="15" />
+                        <ComboBoxItem Content="30" />
+                        <ComboBoxItem Content="60" />
+                        <ComboBoxItem Content="120" />
+                        <ComboBoxItem Content="Never" />
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Auto-save sessions" />
+                    <ui:ToggleSwitch x:Name="AutoSaveToggle" Grid.Row="3" Grid.Column="1" Margin="0,8" IsChecked="True" />
+                </Grid>
+            </StackPanel>
+        </ui:CardControl>
+    </StackPanel>
+</ui:UiPage>

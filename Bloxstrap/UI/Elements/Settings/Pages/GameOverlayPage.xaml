@@ -1,0 +1,131 @@
+<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.GameOverlayPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Voidstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Game Overlay"
+    d:DesignWidth="800"
+    Scrollable="True"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,16,16" VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
+        <TextBlock
+            FontSize="24"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            Text="Game Overlay" />
+        <TextBlock
+            Margin="0,8,0,24"
+            HorizontalAlignment="Center"
+            TextAlignment="Center"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="In-game overlay with FPS, ping, CPU, and RAM monitoring" />
+
+        <!-- Launch Overlay -->
+        <ui:CardControl Margin="0,0,0,16" Padding="32">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,16"
+                    Text="Launch Overlay Window" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    Margin="0,0,0,24"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="Opens a draggable overlay window that displays real-time game statistics" />
+                <ui:Button
+                    x:Name="LaunchOverlayButton"
+                    Width="200"
+                    Height="50"
+                    Appearance="Primary"
+                    Click="LaunchOverlayButton_Click"
+                    Content="Launch Overlay"
+                    Icon="Window24" />
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Features -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,12"
+                    Text="Overlay Features" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• Real-time FPS (Frames Per Second) display" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• Network ping monitoring" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• CPU usage percentage" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• RAM usage in MB" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• Draggable and always-on-top" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Text="• Transparent background for minimal distraction" />
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Settings -->
+        <ui:CardControl>
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="Overlay Settings" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Auto-launch with game" />
+                    <ui:ToggleSwitch x:Name="AutoLaunchToggle" Grid.Row="0" Grid.Column="1" Margin="0,8" IsChecked="False" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Show FPS counter" />
+                    <ui:ToggleSwitch x:Name="ShowFpsToggle" Grid.Row="1" Grid.Column="1" Margin="0,8" IsChecked="True" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,8" VerticalAlignment="Center" Text="Update interval (ms)" />
+                    <ComboBox x:Name="UpdateIntervalCombo" Grid.Row="2" Grid.Column="1" Margin="0,8" Width="120" SelectedIndex="1">
+                        <ComboBoxItem Content="250" />
+                        <ComboBoxItem Content="500" />
+                        <ComboBoxItem Content="1000" />
+                    </ComboBox>
+                </Grid>
+
+                <TextBlock
+                    Margin="0,16,0,0"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="Note: The overlay window stays on top of all windows. You can drag it to reposition."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardControl>
+    </StackPanel>
+</ui:UiPage>

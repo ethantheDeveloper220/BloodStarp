@@ -1,0 +1,248 @@
+<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.SmartBenchmarkPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Voidstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Smart Benchmark System"
+    d:DesignWidth="800"
+    Scrollable="True"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,16,16">
+        <TextBlock
+            FontSize="20"
+            FontWeight="Medium"
+            Text="Smart Benchmark System" />
+        <TextBlock
+            Margin="0,4,0,16"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="Automatically detect your PC's performance and apply optimal presets" />
+
+        <!-- Benchmark Status Card -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="System Performance Score" />
+                
+                <Grid Margin="0,16,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock
+                            x:Name="ScoreText"
+                            FontSize="48"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource SystemAccentBrush}"
+                            Text="0" />
+                        <TextBlock
+                            x:Name="PresetText"
+                            FontSize="16"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="Click 'Run Benchmark' to start" />
+                    </StackPanel>
+
+                    <ui:Button
+                        x:Name="RunBenchmarkButton"
+                        Grid.Column="1"
+                        Width="150"
+                        Height="50"
+                        Appearance="Primary"
+                        Click="RunBenchmarkButton_Click"
+                        Content="Run Benchmark"
+                        Icon="Play24" />
+                </Grid>
+
+                <ProgressBar
+                    x:Name="BenchmarkProgress"
+                    Height="8"
+                    Margin="0,16,0,0"
+                    Maximum="100"
+                    Visibility="Collapsed" />
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Component Scores -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="Component Breakdown" />
+
+                <!-- CPU Score -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="🧩 CPU" />
+                    <ProgressBar
+                        x:Name="CpuProgressBar"
+                        Grid.Column="1"
+                        Height="20"
+                        Margin="8,0"
+                        Maximum="30" />
+                    <TextBlock
+                        x:Name="CpuScoreText"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Text="0/30" />
+                </Grid>
+
+                <!-- RAM Score -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="🧠 RAM" />
+                    <ProgressBar
+                        x:Name="RamProgressBar"
+                        Grid.Column="1"
+                        Height="20"
+                        Margin="8,0"
+                        Maximum="25" />
+                    <TextBlock
+                        x:Name="RamScoreText"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Text="0/25" />
+                </Grid>
+
+                <!-- GPU Score -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="🎮 GPU" />
+                    <ProgressBar
+                        x:Name="GpuProgressBar"
+                        Grid.Column="1"
+                        Height="20"
+                        Margin="8,0"
+                        Maximum="45" />
+                    <TextBlock
+                        x:Name="GpuScoreText"
+                        Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Text="0/45" />
+                </Grid>
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- System Details -->
+        <ui:CardControl Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="System Information" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4" Text="CPU:" FontWeight="SemiBold" />
+                    <TextBlock x:Name="CpuInfoText" Grid.Row="0" Grid.Column="1" Margin="0,4" Text="Detecting..." />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="RAM:" FontWeight="SemiBold" />
+                    <TextBlock x:Name="RamInfoText" Grid.Row="1" Grid.Column="1" Margin="0,4" Text="Detecting..." />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4" Text="GPU:" FontWeight="SemiBold" />
+                    <TextBlock x:Name="GpuInfoText" Grid.Row="2" Grid.Column="1" Margin="0,4" Text="Detecting..." />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="Recommended:" FontWeight="SemiBold" />
+                    <TextBlock x:Name="RecommendedPresetText" Grid.Row="3" Grid.Column="1" Margin="0,4" Text="Run benchmark first" />
+                </Grid>
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Preset Options -->
+        <ui:CardControl>
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,16"
+                    Text="Apply Preset" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:Button
+                        x:Name="PotatoButton"
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        Click="PotatoButton_Click"
+                        Content="🥔 Potato"
+                        ToolTip="For low-end PCs (0-30 score)" />
+
+                    <ui:Button
+                        x:Name="LowButton"
+                        Grid.Column="1"
+                        Margin="4,0"
+                        Click="LowButton_Click"
+                        Content="⚙️ Low"
+                        ToolTip="For mid-range PCs (31-60 score)" />
+
+                    <ui:Button
+                        x:Name="UltraButton"
+                        Grid.Column="2"
+                        Margin="8,0,0,0"
+                        Click="UltraButton_Click"
+                        Content="💎 Ultra"
+                        ToolTip="For high-end PCs (61+ score)" />
+                </Grid>
+
+                <TextBlock
+                    Margin="0,12,0,0"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="Presets will automatically configure FastFlags for optimal performance based on your hardware."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardControl>
+    </StackPanel>
+</ui:UiPage>

@@ -1,0 +1,170 @@
+<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.GameplayToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    Title="Gameplay Tools"
+    Scrollable="True"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,0,16">
+        <!-- Page Header -->
+        <TextBlock FontSize="28" FontWeight="Bold" Text="Gameplay Tools" Margin="0,0,0,8"/>
+        <TextBlock FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,24">
+            Enhance your gameplay experience with helpful tools and automation features.
+        </TextBlock>
+
+        <!-- Anti-AFK Section -->
+        <ui:CardExpander Margin="0,0,0,16" IsExpanded="True">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Anti-AFK (Anti-Kick)" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="Prevent being kicked for inactivity" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <controls:OptionControl Header="Enable Anti-AFK" 
+                                       Description="Automatically send input to prevent AFK kicks">
+                    <ui:ToggleSwitch IsChecked="{Binding EnableAntiAFK, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Click Interval (Minutes)" 
+                                       Description="How often to send a click (default: 15 minutes)">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Minimum="5" 
+                               Maximum="30" 
+                               Width="200"
+                               Value="{Binding AntiAFKInterval, Mode=TwoWay}"
+                               TickFrequency="5"
+                               IsSnapToTickEnabled="True"
+                               Margin="0,0,12,0"/>
+                        <TextBlock Text="{Binding AntiAFKInterval, StringFormat={}{0} min}" 
+                                  FontWeight="SemiBold"
+                                  VerticalAlignment="Center"
+                                  MinWidth="50"/>
+                    </StackPanel>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Randomize Timing" 
+                                       Description="Add ±2 minute variance to seem more human">
+                    <ui:ToggleSwitch IsChecked="{Binding AntiAFKRandomize, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Random Click Position" 
+                                       Description="Click at random screen locations instead of center">
+                    <ui:ToggleSwitch IsChecked="{Binding AntiAFKRandomPosition, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <Border Background="{DynamicResource ControlFillColorDefaultBrush}" 
+                       CornerRadius="8" 
+                       Padding="12" 
+                       Margin="0,12,0,0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <ui:SymbolIcon Symbol="Info24" FontSize="16" Foreground="#FFA500" Margin="0,0,8,0"/>
+                            <TextBlock Text="Status" FontWeight="SemiBold" FontSize="13"/>
+                        </StackPanel>
+                        <TextBlock x:Name="AntiAFKStatusText" 
+                                  Text="Anti-AFK is disabled" 
+                                  FontSize="12" 
+                                  TextWrapping="Wrap"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ui:CardExpander>
+
+        <!-- Auto-Rejoin Section -->
+        <ui:CardExpander Margin="0,0,0,16" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Auto-Rejoin" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="Automatically rejoin if disconnected" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <controls:OptionControl Header="Enable Auto-Rejoin" 
+                                       Description="Automatically rejoin the game if you get disconnected">
+                    <ui:ToggleSwitch IsChecked="{Binding EnableAutoRejoin, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Rejoin Delay (Seconds)" 
+                                       Description="Wait time before rejoining (default: 5 seconds)">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Minimum="1" 
+                               Maximum="30" 
+                               Width="200"
+                               Value="{Binding AutoRejoinDelay, Mode=TwoWay}"
+                               TickFrequency="5"
+                               IsSnapToTickEnabled="True"
+                               Margin="0,0,12,0"/>
+                        <TextBlock Text="{Binding AutoRejoinDelay, StringFormat={}{0}s}" 
+                                  FontWeight="SemiBold"
+                                  VerticalAlignment="Center"
+                                  MinWidth="50"/>
+                    </StackPanel>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Max Rejoin Attempts" 
+                                       Description="Stop trying after this many attempts (0 = unlimited)">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Minimum="0" 
+                               Maximum="10" 
+                               Width="200"
+                               Value="{Binding MaxRejoinAttempts, Mode=TwoWay}"
+                               TickFrequency="1"
+                               IsSnapToTickEnabled="True"
+                               Margin="0,0,12,0"/>
+                        <TextBlock Text="{Binding MaxRejoinAttempts, StringFormat={}{0}}" 
+                                  FontWeight="SemiBold"
+                                  VerticalAlignment="Center"
+                                  MinWidth="50"/>
+                    </StackPanel>
+                </controls:OptionControl>
+            </StackPanel>
+        </ui:CardExpander>
+
+        <!-- Performance Helpers -->
+        <ui:CardExpander Margin="0,0,0,16" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Performance Helpers" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="Tools to improve gameplay performance" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <controls:OptionControl Header="Auto-Clear Cache" 
+                                       Description="Automatically clear cache on startup to prevent issues">
+                    <ui:ToggleSwitch IsChecked="{Binding AutoClearCache, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Reduce Motion Blur" 
+                                       Description="Minimize motion blur for clearer visuals">
+                    <ui:ToggleSwitch IsChecked="{Binding ReduceMotionBlur, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Boost Loading Speed" 
+                                       Description="Optimize asset loading for faster game startup">
+                    <ui:ToggleSwitch IsChecked="{Binding BoostLoadingSpeed, Mode=TwoWay}"/>
+                </controls:OptionControl>
+            </StackPanel>
+        </ui:CardExpander>
+
+        <!-- Info Card -->
+        <ui:CardControl Icon="Warning24" Header="Important Notice">
+            <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                <Run Text="⚠️ Use these tools responsibly."/><LineBreak/>
+                <Run Text="Anti-AFK and automation features may violate some game rules."/><LineBreak/>
+                <Run Text="Use at your own discretion and risk."/>
+            </TextBlock>
+        </ui:CardControl>
+    </StackPanel>
+</ui:UiPage>

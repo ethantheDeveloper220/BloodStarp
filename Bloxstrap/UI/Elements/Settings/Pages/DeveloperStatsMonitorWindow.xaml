@@ -1,0 +1,327 @@
+<Window
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.DeveloperStatsMonitorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Developer Stats Monitor (BETA)"
+    Width="600"
+    Height="800"
+    MinWidth="500"
+    MinHeight="600"
+    WindowStartupLocation="CenterScreen"
+    Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+    mc:Ignorable="d">
+
+    <Grid Margin="16">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Text="Developer Stats Monitor" />
+                <TextBlock
+                    Margin="0,4,0,16"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="Real-time monitoring of top 3 resource-consuming processes" />
+
+                <!-- Monitor Controls -->
+                <ui:CardControl Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Text="Monitoring Status" />
+                            <TextBlock
+                                x:Name="StatusText"
+                                Margin="0,4,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Click Start to begin monitoring" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <ui:Button
+                                x:Name="StartButton"
+                                Width="100"
+                                Margin="0,0,8,0"
+                                Appearance="Primary"
+                                Click="StartButton_Click"
+                                Content="Start"
+                                Icon="Play24" />
+                            <ui:Button
+                                x:Name="StopButton"
+                                Width="100"
+                                Appearance="Secondary"
+                                Click="StopButton_Click"
+                                Content="Stop"
+                                Icon="Stop24"
+                                IsEnabled="False" />
+                        </StackPanel>
+                    </Grid>
+                </ui:CardControl>
+
+                <!-- System Overview -->
+                <ui:CardControl Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,16"
+                            Text="System Overview" />
+
+                        <!-- CPU Usage -->
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Text="CPU Usage:" />
+                            <ProgressBar
+                                x:Name="TotalCpuProgressBar"
+                                Grid.Column="1"
+                                Height="24"
+                                Margin="8,0"
+                                Maximum="100" />
+                            <TextBlock
+                                x:Name="TotalCpuText"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="0%" />
+                        </Grid>
+
+                        <!-- RAM Usage -->
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Text="RAM Usage:" />
+                            <ProgressBar
+                                x:Name="TotalRamProgressBar"
+                                Grid.Column="1"
+                                Height="24"
+                                Margin="8,0"
+                                Maximum="100" />
+                            <TextBlock
+                                x:Name="TotalRamText"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="0%" />
+                        </Grid>
+
+                        <!-- Disk Usage -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Text="Disk Usage:" />
+                            <ProgressBar
+                                x:Name="TotalDiskProgressBar"
+                                Grid.Column="1"
+                                Height="24"
+                                Margin="8,0"
+                                Maximum="100" />
+                            <TextBlock
+                                x:Name="TotalDiskText"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="0%" />
+                        </Grid>
+                    </StackPanel>
+                </ui:CardControl>
+
+                <!-- Top 3 CPU Consumers -->
+                <ui:CardControl Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,16"
+                            Text="🔥 Top 3 CPU Consumers" />
+
+                        <Border
+                            Padding="12"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🥇" FontSize="20" />
+                                <TextBlock x:Name="Cpu1ProcessText" Grid.Column="1" VerticalAlignment="Center" Text="N/A" />
+                                <TextBlock x:Name="Cpu1ValueText" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" Text="0%" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Padding="12"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🥈" FontSize="20" />
+                                <TextBlock x:Name="Cpu2ProcessText" Grid.Column="1" VerticalAlignment="Center" Text="N/A" />
+                                <TextBlock x:Name="Cpu2ValueText" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" Text="0%" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Padding="12"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🥉" FontSize="20" />
+                                <TextBlock x:Name="Cpu3ProcessText" Grid.Column="1" VerticalAlignment="Center" Text="N/A" />
+                                <TextBlock x:Name="Cpu3ValueText" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" Text="0%" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ui:CardControl>
+
+                <!-- Top 3 RAM Consumers -->
+                <ui:CardControl Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,16"
+                            Text="🧠 Top 3 RAM Consumers" />
+
+                        <Border
+                            Padding="12"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🥇" FontSize="20" />
+                                <TextBlock x:Name="Ram1ProcessText" Grid.Column="1" VerticalAlignment="Center" Text="N/A" />
+                                <TextBlock x:Name="Ram1ValueText" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" Text="0 MB" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Padding="12"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🥈" FontSize="20" />
+                                <TextBlock x:Name="Ram2ProcessText" Grid.Column="1" VerticalAlignment="Center" Text="N/A" />
+                                <TextBlock x:Name="Ram2ValueText" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" Text="0 MB" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Padding="12"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🥉" FontSize="20" />
+                                <TextBlock x:Name="Ram3ProcessText" Grid.Column="1" VerticalAlignment="Center" Text="N/A" />
+                                <TextBlock x:Name="Ram3ValueText" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" Text="0 MB" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ui:CardControl>
+
+                <!-- Refresh Rate Info -->
+                <ui:CardControl>
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,8"
+                            Text="Monitor Settings" />
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4" Text="Refresh Rate:" />
+                            <TextBlock x:Name="RefreshRateText" Grid.Row="0" Grid.Column="1" Margin="0,4" Text="1000ms" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="Last Updated:" />
+                            <TextBlock x:Name="LastUpdateText" Grid.Row="1" Grid.Column="1" Margin="0,4" Text="Never" />
+                        </Grid>
+
+                        <TextBlock
+                            Margin="0,12,0,0"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="This monitor updates every second. Stop monitoring when not needed to reduce overhead."
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

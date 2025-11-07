@@ -1,0 +1,125 @@
+﻿<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.BackupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    Title="Backup and Data"
+    Scrollable="True"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,0,16">
+        <!-- Page Header -->
+        <TextBlock FontSize="28" FontWeight="Bold" Text="Configuration Backup &amp; Restore" Margin="0,0,0,8"/>
+        <TextBlock FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,24">
+            Backup and restore your GalaxyStrap configuration including FastFlags, settings, mods, and themes.
+        </TextBlock>
+
+        <!-- Export Section -->
+        <ui:CardExpander Margin="0,0,0,16" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Export Configuration" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="Create a backup of your current configuration" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <controls:OptionControl Header="Include FastFlags" Description="Export all custom FastFlag configurations">
+                    <ui:ToggleSwitch IsChecked="{Binding IncludeFastFlags, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Include Settings" Description="Export application settings and preferences">
+                    <ui:ToggleSwitch IsChecked="{Binding IncludeSettings, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Include Mods" Description="Export installed mods and modifications">
+                    <ui:ToggleSwitch IsChecked="{Binding IncludeMods, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Include Themes" Description="Export custom themes and appearance settings">
+                    <ui:ToggleSwitch IsChecked="{Binding IncludeThemes, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <ui:Button Content="Export Configuration" 
+                          Icon="ArrowExportLtr24" 
+                          Click="ExportConfig_Click"
+                          Appearance="Primary"
+                          Margin="0,16,0,0"/>
+            </StackPanel>
+        </ui:CardExpander>
+
+        <!-- Import Section -->
+        <ui:CardExpander Margin="0,0,0,16" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Import Configuration" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="Restore a previously exported configuration" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <controls:OptionControl Header="Merge with Existing" Description="Merge imported config with current settings (otherwise replaces all)">
+                    <ui:ToggleSwitch IsChecked="{Binding MergeConfig, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Create Backup Before Import" Description="Automatically backup current config before importing">
+                    <ui:ToggleSwitch IsChecked="{Binding BackupBeforeImport, Mode=TwoWay}"/>
+                </controls:OptionControl>
+
+                <ui:Button Content="Import Configuration" 
+                          Icon="ArrowImport24" 
+                          Click="ImportConfig_Click"
+                          Appearance="Primary"
+                          Margin="0,16,0,0"/>
+            </StackPanel>
+        </ui:CardExpander>
+
+        <!-- Roblox Repair Tools -->
+        <ui:CardExpander Margin="0,0,0,16" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Roblox Repair Tools" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="Fix common Roblox installation issues" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <controls:OptionControl Header="Fix RobloxPlayerBeta.dll" Description="Reinstall Roblox without launching (fixes corrupted DLL files)">
+                    <ui:Button Content="Fix Now" 
+                              Icon="Wrench24" 
+                              Click="FixRobloxDLL_Click"
+                              Appearance="Primary"/>
+                </controls:OptionControl>
+
+                <controls:OptionControl Header="Reset All Data" Description="Completely reset GalaxyStrap and Roblox data (WARNING: This will delete all settings)">
+                    <ui:Button Content="Reset Everything" 
+                              Icon="Delete24" 
+                              Click="ResetAllData_Click"
+                              Appearance="Caution"/>
+                </controls:OptionControl>
+            </StackPanel>
+        </ui:CardExpander>
+
+        <!-- Status Section -->
+        <ui:CardControl Icon="Info24" Header="Status">
+            <StackPanel>
+                <TextBlock x:Name="StatusText" 
+                          Text="Ready to export or import configuration" 
+                          FontSize="14" 
+                          TextWrapping="Wrap"
+                          Margin="0,0,0,8"/>
+                
+                <TextBlock x:Name="LastBackupText" 
+                          Text="" 
+                          FontSize="12" 
+                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                          TextWrapping="Wrap"/>
+            </StackPanel>
+        </ui:CardControl>
+    </StackPanel>
+</ui:UiPage>

@@ -1,0 +1,264 @@
+<Window
+    x:Class="Voidstrap.UI.Elements.Dialogs.PresetDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Load FastFlag Preset"
+    Width="750" Height="600"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="CanResize"
+    Loaded="Dialog_Loaded"
+    mc:Ignorable="d">
+
+    <Grid Width="700" Height="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Description -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            FontSize="13"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            TextWrapping="Wrap"
+            Text="Select a preset to load. This will replace your current FastFlags. You can manage repository settings in the settings tab." />
+
+        <!-- Tabs -->
+        <TabControl x:Name="Tabs" Grid.Row="1" Margin="0,0,0,16">
+            <!-- Built-in Presets Tab -->
+            <TabItem Header="Built-in Presets">
+                <Grid Margin="0,16,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,0,0,8"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="Pre-configured presets optimized for different use cases" />
+
+                    <ListBox
+                        x:Name="BuiltInPresetsList"
+                        Grid.Row="1"
+                        SelectionChanged="PresetsList_SelectionChanged"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="8">
+                                    <TextBlock
+                                        FontWeight="Bold"
+                                        FontSize="14"
+                                        Text="{Binding Name}" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
+            <!-- Repository Presets Tab -->
+            <TabItem Header="Repository Presets">
+                <Grid Margin="0,16,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,0,0,8"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="Presets loaded from configured repository" />
+
+                    <ui:Button
+                        x:Name="RefreshButton"
+                        Grid.Row="1"
+                        Margin="0,0,0,8"
+                        Click="RefreshButton_Click"
+                        Content="Refresh Presets"
+                        Icon="ArrowClockwise24" />
+
+                    <ListBox
+                        x:Name="RepositoryPresetsList"
+                        Grid.Row="2"
+                        SelectionChanged="PresetsList_SelectionChanged"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="8">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            FontWeight="Bold"
+                                            FontSize="14"
+                                            Text="{Binding Name}" />
+                                        <ui:Button
+                                            Margin="8,0,0,0"
+                                            Padding="4"
+                                            Height="24"
+                                            Content="★"
+                                            ToolTip="Add to favorites"
+                                            Click="FavoriteButton_Click"
+                                            Tag="{Binding}" />
+                                    </StackPanel>
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
+            <!-- Settings Tab -->
+            <TabItem Header="Settings">
+                <Grid Margin="0,16,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,0,0,16"
+                        FontWeight="Bold"
+                        Text="Repository Settings" />
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Margin="0,0,0,8"
+                        Text="Repository URL:" />
+
+                    <ui:TextBox
+                        x:Name="RepositoryUrlTextBox"
+                        Grid.Row="2"
+                        Margin="0,0,0,16"
+                        PlaceholderText="https://github.com/user/repo/tree/main/folder" />
+
+                    <CheckBox
+                        x:Name="AutoRefreshCheckBox"
+                        Grid.Row="3"
+                        Margin="0,0,0,16"
+                        Content="Auto-refresh presets on dialog open" />
+
+                    <StackPanel Grid.Row="4" VerticalAlignment="Top">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            FontWeight="Bold"
+                            Text="Favorite Presets:" />
+                        <ListBox
+                            x:Name="FavoritesList"
+                            Height="150"
+                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" Margin="0,0,8,0" />
+                                        <ui:Button
+                                            Padding="4"
+                                            Height="24"
+                                            Content="Remove"
+                                            Click="RemoveFavoriteButton_Click"
+                                            Tag="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Preview Section -->
+        <Border
+            Grid.Row="2"
+            Margin="0,0,0,16"
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            Padding="12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,8"
+                    FontWeight="Bold"
+                    Text="Preset Preview:" />
+
+                <ScrollViewer
+                    Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto">
+                    <TextBlock
+                        x:Name="PreviewTextBlock"
+                        FontFamily="Consolas"
+                        FontSize="11"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="Select a preset to preview its contents..."
+                        TextWrapping="Wrap" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Options -->
+        <StackPanel Grid.Row="3" Orientation="Vertical">
+            <CheckBox
+                x:Name="ClearExistingCheckBox"
+                Margin="0,0,0,8"
+                Content="Clear existing FastFlags before loading preset"
+                IsChecked="False" />
+            <CheckBox
+                x:Name="MergeCheckBox"
+                Margin="0,0,0,16"
+                Content="Merge with existing FastFlags (overwrite conflicts)"
+                IsChecked="True" />
+            
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:Button
+                    x:Name="LoadButton"
+                    Width="120"
+                    Margin="0,0,8,0"
+                    Click="LoadButton_Click"
+                    Content="Load Preset"
+                    Appearance="Primary" />
+                <ui:Button
+                    x:Name="CancelButton"
+                    Width="100"
+                    Click="CancelButton_Click"
+                    Content="Cancel" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

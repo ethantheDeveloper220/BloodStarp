@@ -1,0 +1,80 @@
+<ui:UiPage
+    x:Class="Voidstrap.UI.Elements.Settings.Pages.DeveloperStatsMonitorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Voidstrap.UI.Elements.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Voidstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Developer Stats Monitor (BETA)"
+    d:DesignWidth="800"
+    Scrollable="True"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="0,0,16,16" VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
+        <TextBlock
+            FontSize="24"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            Text="Developer Stats Monitor (BETA)" />
+        <TextBlock
+            Margin="0,8,0,24"
+            HorizontalAlignment="Center"
+            TextAlignment="Center"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="Real-time monitoring of top 3 resource-consuming processes" />
+
+        <!-- Open Monitor Window Card -->
+        <ui:CardControl Margin="0,0,0,16" Padding="32">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,16"
+                    Text="Launch Monitoring Window" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    Margin="0,0,0,24"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="Opens a separate window to monitor system resources in real-time" />
+                <ui:Button
+                    x:Name="OpenMonitorButton"
+                    Width="200"
+                    Height="50"
+                    Appearance="Primary"
+                    Click="OpenMonitorButton_Click"
+                    Content="Open Monitor"
+                    Icon="Window24" />
+            </StackPanel>
+        </ui:CardControl>
+
+        <!-- Features Info -->
+        <ui:CardControl>
+            <StackPanel>
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,12"
+                    Text="Features" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• Real-time CPU, RAM, and Disk usage monitoring" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• Top 3 resource-consuming processes" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Margin="0,0,0,8"
+                    Text="• Updates every second for accurate data" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Text="• Separate window for easy multitasking" />
+            </StackPanel>
+        </ui:CardControl>
+    </StackPanel>
+</ui:UiPage>
